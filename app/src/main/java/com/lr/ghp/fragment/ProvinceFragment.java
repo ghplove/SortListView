@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lr.ghp.adapter.SortGroupMemberAdapter;
 import com.lr.ghp.model.GroupMemberBean;

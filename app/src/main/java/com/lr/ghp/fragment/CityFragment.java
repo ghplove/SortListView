@@ -1,22 +1,17 @@
 package com.lr.ghp.fragment;
 
-
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lr.ghp.adapter.CityMenberAdapter;
-import com.lr.ghp.adapter.SortGroupMemberAdapter;
 import com.lr.ghp.model.GroupMemberBean;
 import com.lr.ghp.sortlistview.MainActivity;
 import com.lr.ghp.sortlistview.R;

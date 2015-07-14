@@ -3,6 +3,7 @@ package com.lr.ghp.sortlistview;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -69,6 +70,20 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
+    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+           if(cityLayout.getVisibility()==View.VISIBLE){
+               getProvinces();
+               return false;
+           }
+           else{
+               finish();
+               return super.onKeyDown(keyCode, event);
+           }
+        }
+        return false;
     }
 }
