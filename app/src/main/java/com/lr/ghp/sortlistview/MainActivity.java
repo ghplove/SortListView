@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lr.ghp.model.GroupMemberBean;
-import com.lr.ghp.sortlistview.com.lr.ghp.adapter.SortGroupMemberAdapter;
+import com.lr.ghp.adapter.SortGroupMemberAdapter;
 import com.lr.ghp.utility.CharacterParser;
 import com.lr.ghp.utility.PinyinComparator;
 import com.lr.ghp.view.SideBar;
@@ -92,9 +92,13 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
             }
         });
 
-        SourceDateList = filledData(getResources().getStringArray(R.array.date));
-
+        SourceDateList = filledData(getResources().getStringArray(R.array.province));
         Collections.sort(SourceDateList, pinyinComparator);
+
+        List<GroupMemberBean> sourceHotList=addHot(getResources().getStringArray(R.array.hotP));
+        for(int i=0;i<sourceHotList.size();i++){
+            SourceDateList.add(i,sourceHotList.get(i));
+        }
         adapter = new SortGroupMemberAdapter(this, SourceDateList);
         sortListView.setAdapter(adapter);
         sortListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -172,6 +176,17 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
         });
     }
 
+    private List<GroupMemberBean> addHot(String[] date){
+        List<GroupMemberBean> mSortList = new ArrayList<GroupMemberBean>();
+        for(int i=0;i<date.length;i++){
+            GroupMemberBean sortHot=new GroupMemberBean();
+            sortHot.setName(date[i]);
+            sortHot.setSortLetters("热门");
+            mSortList.add(sortHot);
+        }
+        return mSortList;
+    }
+
     private List<GroupMemberBean> filledData(String[] date) {
         List<GroupMemberBean> mSortList = new ArrayList<GroupMemberBean>();
 
@@ -183,10 +198,7 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
 
             if (sortString.matches("[A-Z]")) {
                 sortModel.setSortLetters(sortString.toUpperCase());
-            } else {
-                sortModel.setSortLetters("#");
             }
-
             mSortList.add(sortModel);
         }
         return mSortList;

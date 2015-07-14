@@ -12,6 +12,7 @@
         android:layout_marginTop="5dip"
         android:background="@drawable/search_bar_edit_selector"
         android:drawableLeft="@mipmap/search_bar_icon_normal"
+        android:visibility="gone"
         android:hint="请输入关键字"
         android:singleLine="true"
         android:textSize="15.0dip" />

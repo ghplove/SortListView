@@ -1,4 +1,4 @@
-package com.lr.ghp.sortlistview.com.lr.ghp.adapter;
+package com.lr.ghp.adapter;
 
 import java.util.List;
 
