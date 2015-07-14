@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.lr.ghp.fragment.CityFragment">
+
+    <ListView
+        android:id="@+id/cityList"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:divider="@null" />
+
+    <TextView
+        android:id="@+id/title_layout_no_city"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="right|top"
+        android:background="#E0E0E0"
+        android:gravity="center_vertical"
+        android:text="没有匹配的联系人"
+        android:textColor="#454545"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/city_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="right|top"
+        android:background="#E0E0E0">
+
+        <TextView
+            android:id="@+id/title_layout_province"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingBottom="5dip"
+            android:paddingLeft="5dip"
+            android:paddingTop="5dip"
+            android:textColor="#454545" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/search_bar_edit_selector"/>
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,15 +1,16 @@
-package com.lr.ghp.sortlistview;
+package com.lr.ghp.fragment;
 
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup.MarginLayoutParams;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,8 +18,10 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lr.ghp.model.GroupMemberBean;
 import com.lr.ghp.adapter.SortGroupMemberAdapter;
+import com.lr.ghp.model.GroupMemberBean;
+import com.lr.ghp.sortlistview.MainActivity;
+import com.lr.ghp.sortlistview.R;
 import com.lr.ghp.utility.CharacterParser;
 import com.lr.ghp.utility.PinyinComparator;
 import com.lr.ghp.view.SideBar;
@@ -27,9 +30,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-public class MainActivity extends ActionBarActivity implements SectionIndexer {
-
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ProvinceFragment extends Fragment implements SectionIndexer {
+    private View view;
+    private MainActivity mainActivity;
     private ListView sortListView;
     private SideBar sideBar;
     private TextView dialog;
@@ -47,25 +53,34 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
 
     private PinyinComparator pinyinComparator;
     private List<GroupMemberBean> filterDateList;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initViews();
+
+    public ProvinceFragment() {
+        // Required empty public constructor
     }
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view=inflater.inflate(R.layout.fragment_province, container, false);
+        mainActivity= (MainActivity) getActivity();
+        initViews();
+        return view;
+    }
     private void initViews() {
-        titleLayout = (LinearLayout) findViewById(R.id.title_layout);
-        title = (TextView) this.findViewById(R.id.title_layout_catalog);
-        tvNofriends = (TextView) this
+        titleLayout = (LinearLayout) view.findViewById(R.id.title_layout);
+        title = (TextView) view.findViewById(R.id.title_layout_catalog);
+        tvNofriends = (TextView) view
                 .findViewById(R.id.title_layout_no_friends);
 
         characterParser = CharacterParser.getInstance();
 
         pinyinComparator = new PinyinComparator();
 
-        sideBar = (SideBar) findViewById(R.id.sidrbar);
-        dialog = (TextView) findViewById(R.id.dialog);
+        sideBar = (SideBar) view.findViewById(R.id.sidrbar);
+        dialog = (TextView) view.findViewById(R.id.dialog);
+        mClearEditText = (EditText) view.findViewById(R.id.filter_edit);
 //        sideBar.setTextView(dialog);
 
         sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
@@ -79,16 +94,13 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
             }
         });
 
-        sortListView = (ListView) findViewById(R.id.country_lvcountry);
-        sortListView.setOnItemClickListener(new OnItemClickListener() {
+        sortListView = (ListView) view.findViewById(R.id.country_lvcountry);
+        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(
-                        getApplication(),
-                        ((GroupMemberBean) adapter.getItem(position)).getName(),
-                        Toast.LENGTH_SHORT).show();
+                mainActivity.getCitys(((GroupMemberBean) adapter.getItem(position)).getName());
             }
         });
 
@@ -99,7 +111,7 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
         for(int i=0;i<sourceHotList.size();i++){
             SourceDateList.add(i,sourceHotList.get(i));
         }
-        adapter = new SortGroupMemberAdapter(this, SourceDateList);
+        adapter = new SortGroupMemberAdapter(mainActivity, SourceDateList);
         sortListView.setAdapter(adapter);
         sortListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -113,7 +125,7 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
                 int nextSection = getSectionForPosition(firstVisibleItem + 1);
                 int nextSecPosition = getPositionForSection(+nextSection);
                 if (firstVisibleItem != lastFirstVisibleItem) {
-                    MarginLayoutParams params = (MarginLayoutParams) titleLayout
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) titleLayout
                             .getLayoutParams();
                     params.topMargin = 0;
                     titleLayout.setLayoutParams(params);
@@ -125,7 +137,7 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
                     if (childView != null) {
                         int titleHeight = titleLayout.getHeight();
                         int bottom = childView.getBottom();
-                        MarginLayoutParams params = (MarginLayoutParams) titleLayout
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) titleLayout
                                 .getLayoutParams();
                         if (bottom < titleHeight) {
                             float pushedDistance = bottom - titleHeight;
@@ -144,7 +156,7 @@ public class MainActivity extends ActionBarActivity implements SectionIndexer {
                 sideBar.invalidate();
             }
         });
-        mClearEditText = (EditText) findViewById(R.id.filter_edit);
+
 
         mClearEditText.addTextChangedListener(new TextWatcher() {
 
