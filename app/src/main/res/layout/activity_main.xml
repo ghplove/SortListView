@@ -5,7 +5,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,7 +12,6 @@
             android:id="@+id/provinceLayout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
-
 
         </FrameLayout>
         <FrameLayout
